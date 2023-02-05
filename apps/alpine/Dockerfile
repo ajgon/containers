@@ -56,4 +56,5 @@ RUN addgroup -S abc --gid 1000 \
 
 VOLUME ["/config"]
 COPY --from=builder /go/bin/envsubst /usr/local/bin/envsubst
-ENTRYPOINT ["/sbin/tini", "--"]
+COPY --chmod=0755 --chown=1000:1000 base-entrypoint.sh /usr/local/bin/base-entrypoint.sh
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/base-entrypoint.sh"]
