@@ -1,0 +1,15 @@
+{
+  "app": "php",
+  "base": true,
+  "daemon": true,
+  "channels": [
+    {
+      "name": "stable",
+      "version": "8.1.14",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  ]
+}
