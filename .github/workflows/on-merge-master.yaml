@@ -1,0 +1,10 @@
+---
+name: Deploy image
+'on':
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    uses: ajgon/containers/.github/workflows/deploy.yaml@master
