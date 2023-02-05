@@ -1,0 +1,28 @@
+---
+# https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#file
+file:
+  /usr/bin/curl:
+    exists: true
+  /usr/bin/dig:
+    exists: true
+  /usr/bin/host:
+    exists: true
+  /usr/bin/nc:
+    exists: true
+  /usr/bin/nslookup:
+    exists: true
+  /usr/share/ca-certificates:
+    exists: true
+
+# https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#group
+group:
+  abc:
+    exists: true
+    gid: 1000
+
+# https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#user
+user:
+  abc:
+    exists: true
+    uid: 1000
+    gid: 1000
