@@ -78,11 +78,17 @@ jobs:
 
       - name: Run Snyk to check Docker image for vulnerabilities
         uses: snyk/actions/docker@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: "${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ matrix.apps.app }}:testing"
           args: --file=apps/${{ matrix.apps.app }}/Dockerfile
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   build-success:
