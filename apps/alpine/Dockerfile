@@ -28,27 +28,26 @@ ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 ENV UMASK="0002" \
     TZ="Etc/UTC"
-
 WORKDIR /app
 
 # hadolint ignore=DL3002
 USER root
 
 #hadolint ignore=DL3018
-RUN apk add --no-cache \
+RUN apk --update add --no-cache \
     bind-tools \
     ca-certificates \
     curl \
     iputils \
     jq \
+    openssl \
     tini \
-    tzdata
-
-RUN addgroup -S abc --gid 1000 \
+    tzdata \
+ && addgroup -S abc --gid 1000 \
  && adduser -S abc -G abc --uid 1000 \
  && mkdir -p /config \
- && chown -R abc:abc /config \
- && chmod -R 775 /config \
+ && chown -R abc:abc /app /config \
+ && chmod -R 775 /app /config \
  && printf "umask %d" "${UMASK}" > /etc/profile.d/umask.sh \
  && ln -s /usr/bin/vi   /usr/local/bin/vi \
  && ln -s /usr/bin/vi   /usr/local/bin/vim \
