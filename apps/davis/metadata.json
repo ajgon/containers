@@ -1,0 +1,15 @@
+{
+  "app": "davis",
+  "base": false,
+  "daemon": true,
+  "channels": [
+    {
+      "name": "stable",
+      "version": "3.1.0",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  ]
+}
