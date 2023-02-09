@@ -5,7 +5,7 @@
   "channels": [
     {
       "name": "stable",
-      "version": "8.1.14-r0",
+      "version": "8.1.15-r0",
       "platforms": [
         "linux/amd64",
         "linux/arm64"

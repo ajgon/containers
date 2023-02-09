@@ -3,36 +3,21 @@ FROM ghcr.io/ajgon/alpine:3.17.1
 ARG TARGETPLATFORM
 ARG VERSION
 ARG CHANNEL
+ENV PHP_VERSION=${VERSION}
 
 #hadolint ignore=DL3018
-RUN ver="$(/bin/ash -o pipefail -c "echo '${VERSION}' | awk -F. '{ print \$1 \$2 }'")" \
- && apk add --no-cache \
+RUN phpver="$(/bin/ash -o pipefail -c "echo '${PHP_VERSION}' | awk -F. '{ print \$1 \$2 }'")" \
+ && apk --update add --no-cache \
     lighttpd \
     fcgi \
-    "php${ver}=${VERSION}"\
-    "php${ver}-calendar=${VERSION}"\
-    "php${ver}-cgi=${VERSION}"\
-    "php${ver}-common=${VERSION}"\
-    "php${ver}-ctype=${VERSION}"\
-    "php${ver}-curl=${VERSION}"\
-    "php${ver}-dom=${VERSION}"\
-    "php${ver}-gd=${VERSION}"\
-    "php${ver}-gettext=${VERSION}"\
-    "php${ver}-iconv=${VERSION}"\
-    "php${ver}-imap=${VERSION}"\
-    "php${ver}-intl=${VERSION}"\
-    "php${ver}-ldap=${VERSION}"\
-    "php${ver}-openssl=${VERSION}"\
-    "php${ver}-pdo=${VERSION}"\
-    "php${ver}-pdo_pgsql=${VERSION}"\
-    "php${ver}-pgsql=${VERSION}"\
-    "php${ver}-posix=${VERSION}"\
-    "php${ver}-session=${VERSION}"\
-    "php${ver}-simplexml=${VERSION}"\
-    "php${ver}-soap=${VERSION}"\
-    "php${ver}-xml=${VERSION}"\
+    "php${phpver}=${PHP_VERSION}" \
+    "php${phpver}-cgi=${PHP_VERSION}" \
  && mkdir -p /run/lighttpd/ \
- && chown abc:abc /run/lighttpd/
+ && chown abc:abc /run/lighttpd/ \
+ && chmod 777 "/etc/php${phpver}/conf.d/" \
+ && echo 'error_log = /proc/self/fd/2' > "/etc/php${phpver}/conf.d/05_error_log.ini" \
+ && echo 'catch_workers_output = yes' >> "/etc/php${phpver}/conf.d/05_error_log.ini" \
+ && sed -i'' "s@##EXTRAS##@echo \"date.timezone = \\\\\"\${TZ}\\\\\"\" > /etc/php${phpver}/conf.d/10_timezone.ini\n\n##EXTRAS##@g" /usr/local/bin/base-entrypoint.sh
 
 COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
 
