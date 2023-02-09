@@ -5,6 +5,8 @@
   "channels": [
     {
       "name": "stable",
+      "renovate::dataSource": "github-releases",
+      "renovate::depName": "tchapi/davis",
       "version": "3.1.0",
       "platforms": [
         "linux/amd64",
