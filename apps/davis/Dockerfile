@@ -5,6 +5,7 @@ ARG VERSION
 ARG CHANNEL
 
 ENV APP_ENV=prod
+COPY Version20230209142217.php /tmp/
 
 #hadolint ignore=DL3018
 RUN phpver="$(/bin/ash -o pipefail -c "echo '${PHP_VERSION}' | awk -F. '{ print \$1 \$2 }'")" \
@@ -33,9 +34,10 @@ RUN phpver="$(/bin/ash -o pipefail -c "echo '${PHP_VERSION}' | awk -F. '{ print 
  && tar -xzvf /tmp/davis.tar.gz -C /app/ --strip-components=1 \
  && rm -rf /tmp/davis.tar.gz \
  && sed -i'' 's@path:.*@path: "php://stderr"@g' /app/config/packages/prod/monolog.yaml \
- && url="$(grep -E 'src="?http' ./templates/base.html.twig | sed -E 's@.*(http[^ "]+).*@\1@g')" \
- && wget -q -O "/app/public/js/$(basename ${url})" ${url} \
- && sed -i'' "s@${url}@/js/$(basename ${url})@g" ./templates/base.html.twig \
+ && url="$(/bin/ash -o pipefail -c "grep -E 'src=\"?http' ./templates/base.html.twig | sed -E 's@.*(http[^ \"]+).*@\1@g'")" \
+ && wget -q -O "/app/public/js/$(basename "${url}")" "${url}" \
+ && sed -i'' "s@${url}@/js/$(basename "${url}")@g" ./templates/base.html.twig \
+ && mv /tmp/Version20230209142217.php /app/migrations/Version20230209142217.php \
  && apk --update add --no-cache --virtual .build-deps composer \
  && composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader \
  && apk del --purge .build-deps \
