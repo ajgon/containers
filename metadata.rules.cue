@@ -1,7 +1,7 @@
 #Spec: {
 	app:  #NonEmptyString
 	base: bool
-	daemon: bool
+	testMuteCmd: bool
 	channels: [...#Channels]
 }
 

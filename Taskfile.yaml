@@ -133,12 +133,12 @@ tasks:
         -f apps/{{ .APP }}/Dockerfile apps/{{ .APP }}
       - >-
         dgoss run test/{{ .APP }}:{{ .CHANNEL }}
-        {{if eq .DAEMON "false"}}tail -f /dev/null{{end}}
+        {{if eq .TEST_MUTE_CMD "true"}}tail -f /dev/null{{end}}
     vars:
       BASE:
         sh: "jq '.base' apps/{{ .APP }}/metadata.json"
-      DAEMON:
-        sh: "jq '.daemon' apps/{{ .APP }}/metadata.json"
+      TEST_MUTE_CMD:
+        sh: "jq '.testMuteCmd' apps/{{ .APP }}/metadata.json"
       VERSION:
         sh: >-
           jq --arg chan "{{ .CHANNEL }}" --raw-output '(.channels | .[] | select(.name == $chan)) | .version'

@@ -1,7 +1,7 @@
 {
   "app": "alpine",
   "base": true,
-  "daemon": false,
+  "testMuteCmd": true,
   "channels": [
     {
       "name": "stable",
