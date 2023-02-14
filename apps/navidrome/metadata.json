@@ -1,0 +1,17 @@
+{
+  "app": "navidrome",
+  "base": false,
+  "testMuteCmd": false,
+  "channels": [
+    {
+      "name": "stable",
+      "renovate::dataSource": "github-releases",
+      "renovate::depName": "navidrome/navidrome",
+      "version": "0.49.3",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  ]
+}
