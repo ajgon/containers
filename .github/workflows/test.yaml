@@ -28,12 +28,12 @@ jobs:
         id: vars
         shell: bash
         run: |-
-          daemon_image=$(jq '.daemon' --raw-output apps/${{ matrix.apps.app }}/metadata.json)
+          test_mute_cmd=$(jq '.testMuteCmd' --raw-output apps/${{ matrix.apps.app }}/metadata.json)
           build_version=$(jq --arg chan ${{ matrix.apps.channel }} --raw-output '(.channels | .[] | select(.name == $chan)) | .version' ./apps/${{ matrix.apps.app }}/metadata.json)
 
           echo "build_version=${build_version}" >> $GITHUB_OUTPUT
           echo "goss_file=./apps/${{ matrix.apps.app }}/ci/goss.yaml" >> $GITHUB_OUTPUT
-          if [[ "${daemon_image}" == false ]]; then
+          if [[ "${test_mute_cmd}" == true ]]; then
             echo "goss_args=tail -f /dev/null" >> $GITHUB_OUTPUT
           fi
 
