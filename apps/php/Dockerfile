@@ -1,4 +1,4 @@
-FROM ghcr.io/ajgon/alpine:3.17.1
+FROM ghcr.io/ajgon/alpine:3.17.2
 
 ARG TARGETPLATFORM
 ARG VERSION
