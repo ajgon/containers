@@ -1,7 +1,7 @@
 {
   "app": "php",
   "base": true,
-  "daemon": true,
+  "testMuteCmd": false,
   "channels": [
     {
       "name": "stable",
