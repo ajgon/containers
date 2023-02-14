@@ -19,10 +19,11 @@ RUN apk add --no-cache --update bash git \
 
 FROM ghcr.io/ajgon/alpine:3.17.2
 
-ENV LISTEN_ADDR 0.0.0.0:3000
+ARG TARGETPLATFORM
+ARG VERSION
+ARG CHANNEL
 
-#hadolint ignore=DL3018
-RUN apk --no-cache add ca-certificates tzdata
+ENV LISTEN_ADDR 0.0.0.0:3000
 
 USER abc
 COPY --chmod=0755 --chown=1000:1000 entrypoint.sh /usr/local/bin/entrypoint.sh
