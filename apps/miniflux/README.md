@@ -17,6 +17,7 @@
 | `MINIFLUX__POCKET_CONSUMER_KEY`         |                    |                          |
 | `MINIFLUX__POLLING_FREQUENCY`           | `60`               |                          |
 | `MINIFLUX__POLLING_PARSING_ERROR_LIMIT` | `5`                |                          |
+| `MINIFLUX__POSTGRES_DATABASE`           |                    |                          |
 | `MINIFLUX__POSTGRES_HOST`               |                    |                          |
 | `MINIFLUX__POSTGRES_PASSWORD`           |                    |                          |
 | `MINIFLUX__POSTGRES_PORT`               | `5432`             |                          |
